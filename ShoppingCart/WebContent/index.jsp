@@ -445,7 +445,7 @@
 					<%=rs1.getString("pname")%> <br>
 					<%=toYenStr(rs1.getInt("price"))%> <br>
 					<form method="post" action="detail.jsp">
-						<input type="submit" value="詳細">
+						<input type="submit" value="商品ページへ">
 						<input type="hidden" name="id" value="<%=id1%>">
 					</form>
 					<br>
@@ -477,7 +477,7 @@
 					<%=rs2.getString("pname")%> <br>
 					<%=toYenStr(rs2.getInt("price"))%> <br>
 					<form method="post" action="detail.jsp">
-						<input type="submit" value="詳細">
+						<input type="submit" value="商品ページへ">
 						<input type="hidden" name="id" value="<%=id2%>">
 					</form>
 					<br>
@@ -509,7 +509,7 @@
 					<%=rs3.getString("pname")%> <br>
 					<%=toYenStr(rs3.getInt("price"))%> <br>
 					<form method="post" action="detail.jsp">
-						<input type="submit" value="詳細">
+						<input type="submit" value="商品ページへ">
 						<input type="hidden" name="id" value="<%=id3%>">
 					</form>
 					<br>

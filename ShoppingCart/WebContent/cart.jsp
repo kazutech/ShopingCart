@@ -12,15 +12,199 @@
 <meta charset="UTF-8">
 <title>カートの商品を表示</title>
 <style>
-	body{
-		background-color: #ffff99;
+	#detail {
+		display: grid;
+  		grid-template-columns: 3fr 2fr;
+  		padding-left: 0;
+  		margin:0;
 	}
-	div.d_center{
-		width: 400px;
+	#detail_image {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}"
+
+	@media screen and (max-width: 519px) {
+
+	.container {
+		width: 96vw;
 		margin: 0 auto;
 	}
-	.bar {
-		background-color: ffcc00;
+
+	header {
+		height:75px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: lightgray;
+	}
+
+	navbar ul {
+		display: grid;
+  		grid-template-columns: 1fr 1fr;
+  		padding-left: 0;
+  		margin:0;
+	}
+
+	navbar ul li{
+		box-sizing: border-box;
+		list-style-type: none;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+	}
+
+	navbar ul li:nth-of-type(1){
+		background-color: red;
+	}
+	navbar ul li:nth-of-type(2){
+		background-color: blue;
+	}
+	navbar ul li:nth-of-type(3){
+		background-color: purple;
+	}
+	navbar ul li:nth-of-type(4){
+		background-color: green;
+	}
+	navbar ul li:nth-of-type(5){
+		background-color: orange;
+	}
+
+	#news {
+		height: 100px;
+	}
+
+	#sidebar {
+		display: none;
+	}
+
+	.products {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	}
+
+	@media screen and (min-width: 520px) and (max-width: 959px) {
+
+	.container {
+		width:96vw;
+		margin: 0 auto;
+	}
+
+	header {
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: lightgray;
+	}
+	navbar ul {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  		padding-left: 0;
+  		margin:0;
+
+	}
+	navbar ul li{
+		box-sizing: border-box;
+		list-style-type: none;
+		height:50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+	}
+
+	navbar ul li:nth-of-type(1){
+		background-color: red;
+	}
+	navbar ul li:nth-of-type(2){
+		background-color: blue;
+	}
+	navbar ul li:nth-of-type(3){
+		background-color: purple;
+	}
+	navbar ul li:nth-of-type(4){
+		background-color: green;
+	}
+	navbar ul li:nth-of-type(5){
+		background-color: orange;
+	}
+
+	main {
+		display: grid;
+  		grid-template-columns: 1fr 3fr;
+	}
+
+	#news {
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#sidebar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#content {
+
+	}
+
+	.products {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	}
+
+	@media screen and (min-width:960px) {
+
+	.container {
+		width:96vw;
+		margin: 0 auto;
+	}
+
+	header {
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: lightgray;
+	}
+
+	main {
+		display: grid;
+  		grid-template-columns: 1fr 3fr;
+	}
+
+	#news {
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#sidebar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#content {
+
+	}
+
+	.products {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+	}
+
 	}
 </style>
 </head>
@@ -51,13 +235,18 @@ case 3:	// 変更モード
 int count = 0;
 switch( mode ) {
 case 1:	// 追加モード
+	try {
+		count = Integer.parseInt(request.getParameter("count"));
+	} catch (NumberFormatException e){
+		mode = 0;
+	}
+
 case 3:	// 変更モード
 	try {
 		count = Integer.parseInt(request.getParameter("count"));
 	} catch (NumberFormatException e)
 	{
 %>
-		<p>数量に数値以外が指定されました。</p>
 <%
 		mode = 0;	// 表示モードに切り替え
 	}
@@ -70,7 +259,7 @@ if( mode == 1 ) {
 	Class.forName(jdbc);
 	Connection conn = DriverManager.getConnection(url,user,pass);
 	Statement st = conn.createStatement();
-	String sql = "SELECT * FROM product1 where id = " + id;
+	String sql = "SELECT * FROM shoutengai where id = " + id;
 	ResultSet rs = st.executeQuery(sql);
 
 	// アイテムの追加
@@ -100,7 +289,72 @@ if( mode == 3 ) {
 }
 %>
 
-<h3>カートの商品</h3>
+<%
+		Connection conn;
+		Statement st;
+		String sql;
+		ResultSet rs;
+
+		Class.forName(jdbc);
+		conn = DriverManager.getConnection(url,user,pass);
+
+		st = conn.createStatement();
+		sql = "SELECT * FROM shoutengai WHERE id = " + id;
+		rs = st.executeQuery(sql);
+		rs.next();
+
+//		String id = rs.getString("id");
+		String pname = rs.getString("pname");
+		String price = rs.getString("price");
+		String img = rs.getString("img");
+		int shopNum = rs.getInt("shopNum");
+		int amount = rs.getInt("amount");
+
+	%>
+<div class="container">
+	<header>
+	<h1>○○商店街オンラインストア</h1>
+	</header>
+	<navbar>
+	<%
+		switch(shopNum) {
+			case 1:
+				out.println("<div style=\"background-color:red;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>○○精肉店</a></div>");
+				break;
+			case 2:
+				out.println("<div style=\"background-color:blue;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>■■鮮魚店</a></div>");
+				break;
+			case 3:
+				out.println("<div style=\"background-color:purple;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>▲▲鮮魚店</a></div>");
+				break;
+			case 4:
+				out.println("<div style=\"background-color:green;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>☆☆八百屋</a></div>");
+				break;
+			case 5:
+				out.println("<div style=\"background-color:yellow;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:black;\nheight:50px;\"><a>◆◆喫茶店</a></div>");
+				break;
+			default:
+				out.println("");
+				break;
+		}
+	%>
+	</navbar>
+	<main>
+	<div id="sidebar">
+	ここにサイドバー
+	</div>
+	<div id="content">
+	<h3>カートの商品</h3>
+	<div id="cart">
+		<div id="cart_detail">
+			<ul>
+				<li>商品名</li>
+				<li>数量</li>
+				<li>金額</li>
+			</ul>
+		</div>
+
+	</div>
 <table border="1">
 	<tr class="bar">
 		<th colspan="2">商品名</th>
@@ -155,7 +409,7 @@ if( mode == 3 ) {
 		else
 			cspan = 2;
 %>
-		<form method="post" action="buyindex.jsp">
+		<form method="post" action="index.jsp">
 			<td colspan="<%= cspan %>"><input type="submit" value="買い物を続ける" /></td>
 		</form>
 <%
@@ -169,5 +423,7 @@ if( mode == 3 ) {
 %>
 	</tr>
 </table>
+</div>
+</main>
 </body>
 </html>
