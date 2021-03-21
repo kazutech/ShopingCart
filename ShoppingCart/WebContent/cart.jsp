@@ -12,6 +12,13 @@
 <meta charset="UTF-8">
 <title>カートの商品を表示</title>
 <style>
+	body{
+		background-color: #ffff99;
+	}
+
+	#img {
+		background-image: url("images/shoutengai.jpg");
+	}
 	#detail {
 		display: grid;
   		grid-template-columns: 3fr 2fr;
@@ -22,7 +29,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}"
+	}
 
 	@media screen and (max-width: 519px) {
 
@@ -31,12 +38,18 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:75px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:75%;
+	}
+
+	#img {
+		background-image: url("images/shoutengai.jpg");
 	}
 
 	navbar ul {
@@ -94,12 +107,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:150px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:120%;
 	}
 	navbar ul {
 		display: grid;
@@ -176,6 +191,8 @@
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:150%;
 	}
 
 	main {
@@ -240,6 +257,7 @@ case 1:	// 追加モード
 	} catch (NumberFormatException e){
 		mode = 0;
 	}
+
 
 case 3:	// 変更モード
 	try {
@@ -313,49 +331,16 @@ if( mode == 3 ) {
 	%>
 <div class="container">
 	<header>
+	<div id="img" style="height:100%; width:100%;">
 	<h1>○○商店街オンラインストア</h1>
+	</div>
 	</header>
-	<navbar>
-	<%
-		switch(shopNum) {
-			case 1:
-				out.println("<div style=\"background-color:red;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>○○精肉店</a></div>");
-				break;
-			case 2:
-				out.println("<div style=\"background-color:blue;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>■■鮮魚店</a></div>");
-				break;
-			case 3:
-				out.println("<div style=\"background-color:purple;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>▲▲鮮魚店</a></div>");
-				break;
-			case 4:
-				out.println("<div style=\"background-color:green;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>☆☆八百屋</a></div>");
-				break;
-			case 5:
-				out.println("<div style=\"background-color:yellow;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:black;\nheight:50px;\"><a>◆◆喫茶店</a></div>");
-				break;
-			default:
-				out.println("");
-				break;
-		}
-	%>
-	</navbar>
 	<main>
 	<div id="sidebar">
 	ここにサイドバー
 	</div>
 	<div id="content">
-	<h3>カートの商品</h3>
-	<div id="cart">
-		<div id="cart_detail">
-			<ul>
-				<li>商品名</li>
-				<li>数量</li>
-				<li>金額</li>
-			</ul>
-		</div>
-
-	</div>
-<table border="1">
+	<table border="1">
 	<tr class="bar">
 		<th colspan="2">商品名</th>
 		<th colspan="2">数量</th>
@@ -385,7 +370,9 @@ if( mode == 3 ) {
 				</form>
 				<td><%= items[i].getName() %></td>
 				<form method="post" action="<%= request.getRequestURI() %>">
-					<td><input type="text" name="count" value="<%= items[i].getCount() %>" /></td>
+					<td>
+					<input type="text" name="count" value="<%= items[i].getCount() %>" />
+					</td>
 					<td><input type="submit" value="数量変更" /></td>
 					<input type="hidden" name="mode" value="3" />
 					<input type="hidden" name="id" value="<%= items[i].getId() %>" />
@@ -411,6 +398,7 @@ if( mode == 3 ) {
 %>
 		<form method="post" action="index.jsp">
 			<td colspan="<%= cspan %>"><input type="submit" value="買い物を続ける" /></td>
+			<input type="hidden" name="shopNum" value=<%= shopNum %>/>
 		</form>
 <%
 		if( items != null ) {
@@ -425,5 +413,6 @@ if( mode == 3 ) {
 </table>
 </div>
 </main>
+</div>
 </body>
 </html>

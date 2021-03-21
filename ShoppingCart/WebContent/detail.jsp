@@ -10,6 +10,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>商品詳細表示</title>
 <style>
+	body{
+		background-color: #ffff99;
+	}
 
 	#detail {
 		display: grid;
@@ -21,7 +24,12 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-	}"
+	}
+
+	#img {
+		background-image: url("images/shoutengai.jpg");
+	}
+
 
 	@media screen and (max-width: 519px) {
 
@@ -30,12 +38,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:75px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:75%;
 	}
 
 	navbar ul {
@@ -93,12 +103,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:150px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:120%;
 	}
 	navbar ul {
 		display: grid;
@@ -169,12 +181,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:150px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:150%;
 	}
 
 	main {
@@ -234,10 +248,14 @@
 	%>
 <div class="container">
 	<header>
+	<div id="img" style="height:100%; width:100%;">
 	<h1>○○商店街オンラインストア</h1>
+	</div>
 	</header>
 	<navbar>
 	<%
+
+
 		switch(shopNum) {
 			case 1:
 				out.println("<div style=\"background-color:red;\ndisplay:flex;\nalign-items:center;\njustify-content:center;\ncolor:white;\nheight:50px;\"><a>○○精肉店</a></div>");
@@ -277,7 +295,7 @@
 
 		<div id="detail">
 			<div id="detail_image">
-				<img src="<%=img%>" alt="<%=img%>" width="150" height="150">
+				<img src="images/<%=img%>" alt="<%=img%>" width="150" height="150">
 				<p></p>
 			</div>
 			<div id="detail_content">
@@ -285,10 +303,10 @@
 					<%=pname%><br>
 					<p>価格: <%= toYenStr(price) %></p>
 					<p>数量
-					<select>
+					<select name="count">
 					<%
 						for(int i=1; i<= amount; i++) {
-							out.println("<option name=\"count\" value=\""+i+"\" >"+i+"</option>");
+							out.println("<option value=\""+i+"\" >"+i+"</option>");
 						}
 					%>
 					</select>

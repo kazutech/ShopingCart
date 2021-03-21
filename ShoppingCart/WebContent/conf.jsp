@@ -12,20 +12,224 @@
 	body{
 		background-color: #ffff99;
 	}
-	div.d_center{
-		width: 400px;
+
+	#img {
+		background-image: url("images/shoutengai.jpg");
+	}
+	#detail {
+		display: grid;
+  		grid-template-columns: 3fr 2fr;
+  		padding-left: 0;
+  		margin:0;
+	}
+	#detail_image {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}"
+
+	@media screen and (max-width: 519px) {
+
+	.container {
+		width: 96vw;
 		margin: 0 auto;
 	}
-	th {
-		background-color: ffcc00;
-	}
-	.bar {
-		background-color: ffcc00;
+
+	header div{
+		height:75px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: lightgray;
+		color:yellow;
+		font-size:75%;
 	}
 
+	navbar ul {
+		display: grid;
+  		grid-template-columns: 1fr 1fr;
+  		padding-left: 0;
+  		margin:0;
+	}
+
+	navbar ul li{
+		box-sizing: border-box;
+		list-style-type: none;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+	}
+
+	navbar ul li:nth-of-type(1){
+		background-color: red;
+	}
+	navbar ul li:nth-of-type(2){
+		background-color: blue;
+	}
+	navbar ul li:nth-of-type(3){
+		background-color: purple;
+	}
+	navbar ul li:nth-of-type(4){
+		background-color: green;
+	}
+	navbar ul li:nth-of-type(5){
+		background-color: orange;
+	}
+
+	#news {
+		height: 100px;
+	}
+
+	#sidebar {
+		display: none;
+	}
+
+	.products {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	}
+
+	@media screen and (min-width: 520px) and (max-width: 959px) {
+
+	.container {
+		width:96vw;
+		margin: 0 auto;
+	}
+
+	header div{
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: lightgray;
+		color:yellow;
+		font-size:120%;
+	}
+	navbar ul {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  		padding-left: 0;
+  		margin:0;
+
+	}
+	navbar ul li{
+		box-sizing: border-box;
+		list-style-type: none;
+		height:50px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+	}
+
+	navbar ul li:nth-of-type(1){
+		background-color: red;
+	}
+	navbar ul li:nth-of-type(2){
+		background-color: blue;
+	}
+	navbar ul li:nth-of-type(3){
+		background-color: purple;
+	}
+	navbar ul li:nth-of-type(4){
+		background-color: green;
+	}
+	navbar ul li:nth-of-type(5){
+		background-color: orange;
+	}
+
+	main {
+		display: grid;
+  		grid-template-columns: 1fr 3fr;
+	}
+
+	#news {
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#sidebar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#content {
+
+	}
+
+	.products {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	}
+
+	@media screen and (min-width:960px) {
+
+	.container {
+		width:96vw;
+		margin: 0 auto;
+	}
+
+	header div{
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: lightgray;
+		color:yellow;
+		font-size:150%;
+	}
+
+	main {
+		display: grid;
+  		grid-template-columns: 1fr 3fr;
+	}
+
+	#news {
+		height:150px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#sidebar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	#content {
+
+	}
+
+	.products {
+		display: grid;
+  		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+	}
 </style>
 </head>
 <body>
+<div class="container">
+	<header>
+	<div id="img" style="height:100%; width:100%;">
+	<h1>○○商店街オンラインストア</h1>
+	</div>
+	</header>
+	<main>
+	<div id="sidebar">
+	ここにサイドバー
+	</div>
+	<div id="content">
 <h3>注文内容確認画面</h3>
 <%
 	boolean isError = false;	// 入力に問題があったら true
@@ -143,5 +347,8 @@ if( isError ) {
 <%
 }
 %>
+
+</div>
+</main>
 </body>
 </html>

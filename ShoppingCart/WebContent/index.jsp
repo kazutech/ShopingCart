@@ -9,6 +9,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Insert title here</title>
 <style>
+	body{
+		background-color: #ffff99;
+	}
+
+	#img {
+		background-image: url("images/shoutengai.jpg");
+	}
+
+
 	@media screen and (max-width: 519px) {
 
 	.container {
@@ -16,12 +25,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:75px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:75%;
 	}
 
 	navbar ul {
@@ -79,12 +90,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div{
 		height:150px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:120%;
 	}
 	navbar ul {
 		display: grid;
@@ -155,12 +168,14 @@
 		margin: 0 auto;
 	}
 
-	header {
+	header div {
 		height:150px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		background-color: lightgray;
+		color:yellow;
+		font-size:150%;
 	}
 	navbar ul {
 		display: grid;
@@ -228,11 +243,10 @@
 <body>
 <div class="container">
 	<header>
+	<div id="img" style="height:100%; width:100%;">
 	<h1>○○商店街オンラインストア</h1>
-	</header>
-	<div id="img" style="height: 250px">
-		<h2 style="text-align: center;">商品イメージ画像</h2>
 	</div>
+	</header>
 	<navbar>
 	<ul>
 		<li><div><a>○○精肉店</a></div></li>

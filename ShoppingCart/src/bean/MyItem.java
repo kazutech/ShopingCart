@@ -7,6 +7,7 @@ public class MyItem implements java.io.Serializable {
 	private String name;    //商品名
 	private int price;      //単価
 	private int count;      //数量
+	private int shopNum;
 
 
 
@@ -41,6 +42,14 @@ public class MyItem implements java.io.Serializable {
 //get数量
 	public int getCount(){
 		return this.count;
+	}
+//set店番号
+	public void setShopNum(int shopNum){
+		this.shopNum = shopNum;
+		}
+//get店番号
+	public int getShopNum(){
+		return this.shopNum;
 	}
 
 
