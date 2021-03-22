@@ -38,7 +38,6 @@
 		width:100%;
 	}
 
-
 	navbar ul {
 		display: grid;
   		grid-template-columns: 1fr 1fr;
@@ -105,7 +104,6 @@
 		font-weight:bold;
 		line-height:150px;
 		width:100%;
-
 	}
 	navbar ul {
 		display: grid;
@@ -187,6 +185,7 @@
 		font-weight:bold;
 		line-height:150px;
 		width:100%;
+	}
 	}
 	navbar ul {
 		display: grid;
@@ -322,7 +321,6 @@
 	</ul>
 	</navbar>
 	<div id="news">
-	<h2>新着情報</h2>
 	</div>
 	<main>
 	<div id="sidebar">
@@ -441,178 +439,58 @@
 
 		//データを取り出す
 
-		st1 = conn.createStatement();
-		st2 = conn.createStatement();
-		st3 = conn.createStatement();
-		st4 = conn.createStatement();
 		st = conn.createStatement();
 
-		sql1 = "SELECT id,pname,price,img  FROM seiniku1 ";
-
-		sql2 = "SELECT id,pname,price,img  FROM sengyo1 ";
-
-		sql3 = "SELECT id,pname,price,img  FROM sengyo2 ";
-
-		sql4 = "SELECT id,pname,price,img  FROM yaoya1 ";
-
-		sql = "SELECT id,pname,price,img  FROM shoutengai ";
-
-
-
-		sql_new = sql + "order by lasttime desc limit 3";
-
-		sql_fvr = sql + "order by rate asc limit 3";
-
-		sql_hot = sql + "order by amount asc limit 3";
-
-
-
-		if( key.equals("") == false ) {
-			sql1	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql2	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql3	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql4	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-
+		sql = "SELECT id,pname,price,img FROM shoutengai ";
 
 		//Navbarでクエリ
 		String shopNum = request.getParameter("shopNum");
 
-		if( key.equals("") == false ) {
-			sql	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-			if( shopNum.equals("") == false ) {
-			sql += 	"AND shopNum = " + shopNum;
-			}
-		}
+		sql	+=	"WHERE shopNum = " + shopNum;
 
-		sql1 += " ORDER BY id DESC";
-		sql2 += " ORDER BY id DESC";
-		sql3 += " ORDER BY id DESC";
-		sql4 += " ORDER BY id DESC";
-		sql += " ORDER BY id DESC";
-		sql1 += " LIMIT " + s + "," + lim;
-		sql2 += " LIMIT " + s + "," + lim;
-		sql3 += " LIMIT " + s + "," + lim;
-		sql4 += " LIMIT " + s + "," + lim;
-		sql += " LIMIT " + s + "," + lim;
+		sql += " ORDER BY id ASC";
 
-
-
-		rs1 = st1.executeQuery(sql_new);
-		rs2 = st2.executeQuery(sql_fvr);
-		rs3 = st3.executeQuery(sql_hot);
+		rs = st.executeQuery(sql);
 
 
 		%>
 
-		<h2>新着商品</h2>
+		<h2>商品一覧</h2>
 
 		<div class="products">
 
 			<%
 
-			while( rs1.next() ) {
-			String id1 = rs1.getString("id");
+			while( rs.next() ) {
+			String id = rs.getString("id");
 			%>
 
 			<div class="products">
 				<div class="product">
 			<%
-					String imgPath1 = rs1.getString("img");
-					if( imgPath1 == null || imgPath1.equals("") ) {
-						imgPath1 = "print.gif";
+					String imgPath = rs.getString("img");
+					if( imgPath == null || imgPath.equals("") ) {
+						imgPath = "print.gif";
 					}
 			%>
-					<img src="images/<%= imgPath1 %>" width="150" height="150" />
+					<img src="images/<%= imgPath %>" width="150" height="150" />
 
-					<%=rs1.getString("pname")%> <br>
-					<%=toYenStr(rs1.getInt("price"))%> <br>
+					<%=rs.getString("pname")%> <br>
+					<%=toYenStr(rs.getInt("price"))%> <br>
 					<form method="post" action="detail.jsp">
 						<input type="submit" value="商品ページへ">
-						<input type="hidden" name="id" value="<%=id1%>">
+						<input type="hidden" name="id" value="<%=id%>">
 					</form>
 					<br>
 				</div>
 			</div>
 			<% } %>
-
-		</div>
-
-		<h2>オススメ商品</h2>
-
-		<div class="products">
-
-			<%
-			while( rs2.next() ) {
-			String id2 = rs2.getString("id");
-			%>
-
-			<div class="products">
-				<div class="product">
-			<%
-					String imgPath2 = rs2.getString("img");
-					if( imgPath2 == null || imgPath2.equals("") ) {
-						imgPath2 = "print.gif";
-					}
-			%>
-					<img src="images/<%= imgPath2 %>" width="150" height="150" />
-
-					<%=rs2.getString("pname")%> <br>
-					<%=toYenStr(rs2.getInt("price"))%> <br>
-					<form method="post" action="detail.jsp">
-						<input type="submit" value="商品ページへ">
-						<input type="hidden" name="id" value="<%=id2%>">
-					</form>
-					<br>
-				</div>
-			</div>
-			<% } %>
-
-		</div>
-
-		<h2>売れ筋商品</h2>
-
-		<div class="products">
-
-			<%
-			while( rs3.next() ) {
-			String id3 = rs3.getString("id");
-			%>
-
-			<div class="products">
-				<div class="product">
-			<%
-					String imgPath3 = rs3.getString("img");
-					if( imgPath3 == null || imgPath3.equals("") ) {
-						imgPath3 = "print.gif";
-					}
-			%>
-					<img src="images/<%= imgPath3 %>" width="150" height="150" />
-
-					<%=rs3.getString("pname")%> <br>
-					<%=toYenStr(rs3.getInt("price"))%> <br>
-					<form method="post" action="detail.jsp">
-						<input type="submit" value="商品ページへ">
-						<input type="hidden" name="id" value="<%=id3%>">
-					</form>
-					<br>
-				</div>
-			</div>
-			<% }
-			%>
 
 		</div>
 
 	</div>
 	<% conn.close(); %>
 	</main>
-	<a href="buyindex.jsp">商品一覧へ</a>
 </div>
 <footer>
 

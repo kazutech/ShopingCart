@@ -250,6 +250,21 @@
 		String shopNum = request.getParameter("shopNum");
 		if(shopNum == null) {
 			shopNum = ""; }
+		String card1 = request.getParameter("card1");
+		if(card1 == null) {
+			card1 = ""; }
+		String card2 = request.getParameter("card2");
+		if(card2 == null) {
+			card2 = ""; }
+		String card3 = request.getParameter("card3");
+		if(card3 == null) {
+			card3 = ""; }
+		String card4 = request.getParameter("card4");
+		if(card4 == null) {
+			card4 = ""; }
+		String securityNum = request.getParameter("securityNum");
+		if(securityNum == null) {
+			securityNum = ""; }
 	%>
 
 		<form method="POST" action="conf.jsp">
@@ -279,6 +294,24 @@
 			<td>メールアドレス</td>
 			<td><input type="text" name="mail" value="<%=mail%>" required></td>
 			</tr>
+
+			<tr>
+			<td>カード番号</td>
+			<td>
+			<input type="text" name="card1" value="<%=card1%>" size=1 maxlength=4 required> -
+			<input type="text" name="card2" value="<%=card2%>" size=1 maxlength=4 required> -
+			<input type="text" name="card3" value="<%=card3%>" size=1 maxlength=4 required> -
+			<input type="text" name="card4" value="<%=card4%>" size=1 maxlength=4 required>
+			</td>
+			</tr>
+
+			<tr>
+			<td>セキュリティ番号</td>
+			<td>
+			<input type="text" name="securityNum" value="<%=securityNum%>" size=1 maxlength=3 required>
+			</td>
+			</tr>
+
 		</table>
 		<p>
 		<input type="submit" value="確認" name="B1"></p>

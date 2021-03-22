@@ -274,6 +274,48 @@
 	} else {
 		mail = cnvString(mail);
 	}
+
+	String card1 = request.getParameter("card1");
+	if( card1 == null || card1.equals("") ) {
+		isError = true;
+		card1 = "入力されていません";
+	} else {
+		card1 = cnvString(card1);
+	}
+
+	String card2 = request.getParameter("card2");
+	if( card2 == null || card2.equals("") ) {
+		isError = true;
+		card2 = "入力されていません";
+	} else {
+		card2 = cnvString(card2);
+	}
+
+
+	String card3 = request.getParameter("card3");
+	if( card3 == null || card3.equals("") ) {
+		isError = true;
+		card3 = "入力されていません";
+	} else {
+		card3= cnvString(card3);
+	}
+
+	String card4 = request.getParameter("card4");
+	if( card4 == null || card4.equals("") ) {
+		isError = true;
+		card4 = "入力されていません";
+	} else {
+		card4 = cnvString(card4);
+	}
+
+
+	String securityNum = request.getParameter("securityNum");
+	if( securityNum == null || securityNum.equals("") ) {
+		isError = true;
+		securityNum = "入力されていません";
+	} else {
+		securityNum = cnvString(securityNum);
+	}
 %>
 <table border="1">
 	<tr>
@@ -295,6 +337,14 @@
 	<tr>
 		<th>メールアドレス</th>
 		<td><%=mail%></td>
+	</tr>
+	<tr>
+		<th>カード番号</th>
+		<td><%=card1%> -<%=card2%> -<%=card3%> -<%=card4%></td>
+	</tr>
+	<tr>
+		<th>セキュリティ番号</th>
+		<td><%=securityNum%></td>
 	</tr>
 </table>
 <table border="1">
@@ -338,11 +388,12 @@ if( isError ) {
 %>
 	<form method="post" action="order.jsp">
 		<input type="submit" value="注文する">
-		<input type="hidden" name="namae" value="<%=namae%>"></td>
-		<input type="hidden" name="number" value="<%=number%>"></td>
-		<input type="hidden" name="address" value="<%=address%>"></td>
-		<input type="hidden" name="tel" value="<%=tel%>"></td>
-		<input type="hidden" name="mail" value="<%=mail%>"></td>
+		<input type="hidden" name="namae" value="<%=namae%>">
+		<input type="hidden" name="number" value="<%=number%>">
+		<input type="hidden" name="address" value="<%=address%>">
+		<input type="hidden" name="tel" value="<%=tel%>">
+		<input type="hidden" name="mail" value="<%=mail%>">
+		<input type="hidden" name="card1" value="<%=card1%>">
 	</form>
 <%
 }

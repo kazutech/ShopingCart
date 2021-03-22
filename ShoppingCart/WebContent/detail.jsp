@@ -314,13 +314,12 @@
 					<input type="hidden" name="mode" value="1" />
 					<input type="hidden" name="id" value="<%=id%>">
 				</form>
-				<form method="POST" action="cart.jsp">
+				<form method="post" action="cart.jsp">
 					<input type="submit" value="カートの中身を表示" name="sub1">
 					<input type="hidden" name="mode" value="0" />
 				</form>
 			</div>
 		</div>
-
 
 	<% conn.close(); %>
 

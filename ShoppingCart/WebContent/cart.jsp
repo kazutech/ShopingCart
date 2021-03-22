@@ -305,6 +305,10 @@ if( mode == 2 ) {
 if( mode == 3 ) {
 	cart.change(id,count);
 }
+
+if( mode == 0 ) {
+
+}
 %>
 
 <%
@@ -369,6 +373,7 @@ if( mode == 3 ) {
 					<input type="hidden" name="id" value="<%= items[i].getId() %>" />
 				</form>
 				<td><%= items[i].getName() %></td>
+
 				<form method="post" action="<%= request.getRequestURI() %>">
 					<td>
 					<input type="text" name="count" value="<%= items[i].getCount() %>" />

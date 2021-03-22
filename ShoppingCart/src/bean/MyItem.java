@@ -8,6 +8,8 @@ public class MyItem implements java.io.Serializable {
 	private int price;      //単価
 	private int count;      //数量
 	private int shopNum;
+	private String img;
+	private int card1;
 
 
 
@@ -51,6 +53,17 @@ public class MyItem implements java.io.Serializable {
 	public int getShopNum(){
 		return this.shopNum;
 	}
-
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getImg() {
+		return this.img;
+	}
+	public void setCard(int card1) {
+		this.card1 = card1;
+	}
+	public int getCard() {
+		return this.card1;
+	}
 
 }

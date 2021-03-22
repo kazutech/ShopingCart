@@ -284,6 +284,8 @@
 					String address  = cnvString( request.getParameter("address") );	//住所
 					String tel      = cnvString( request.getParameter("tel") );		//電話番号
 					String mail     = cnvString( request.getParameter("mail") );	//メールアドレス
+					String card1     = cnvString( request.getParameter("card1") );
+
 
 					int totalPrice = 0;
 
@@ -304,6 +306,9 @@
 
 						txt.write("数　量：");
 						txt.write(items[i].getCount() + "\n");
+
+						txt.write("カード番号：");
+						txt.write(items[i].getCard() + "**** + **** + ****" + "\n");
 
 						txt.write("-------------------"+ "\n" + "小　計：");
 						txt.write(subTotal + "\n" + "-------------------");
@@ -331,6 +336,9 @@
 
 					txt.write("メールアドレス：");
 					txt.write(mail + "\n");
+
+					txt.write("カード番号：");
+					txt.write(card1 + "**** + **** + ****" + "\n");
 
 					txt.close();
 
