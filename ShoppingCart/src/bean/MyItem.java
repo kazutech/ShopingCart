@@ -59,11 +59,5 @@ public class MyItem implements java.io.Serializable {
 	public String getImg() {
 		return this.img;
 	}
-	public void setCard(int card1) {
-		this.card1 = card1;
-	}
-	public int getCard() {
-		return this.card1;
-	}
 
 }

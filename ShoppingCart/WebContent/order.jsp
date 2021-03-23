@@ -287,6 +287,7 @@
 					String card1     = cnvString( request.getParameter("card1") );
 
 
+
 					int totalPrice = 0;
 
 					MyItem[] items = cart.getStat();
@@ -306,9 +307,6 @@
 
 						txt.write("数　量：");
 						txt.write(items[i].getCount() + "\n");
-
-						txt.write("カード番号：");
-						txt.write(items[i].getCard() + "**** + **** + ****" + "\n");
 
 						txt.write("-------------------"+ "\n" + "小　計：");
 						txt.write(subTotal + "\n" + "-------------------");
@@ -338,7 +336,7 @@
 					txt.write(mail + "\n");
 
 					txt.write("カード番号：");
-					txt.write(card1 + "**** + **** + ****" + "\n");
+					txt.write(card1 + "- **** - **** - ****" + "\n");
 
 					txt.close();
 

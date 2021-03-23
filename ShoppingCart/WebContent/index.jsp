@@ -18,6 +18,11 @@
 	}
 
 
+	.search {
+		display:flex;
+	}
+
+
 	@media screen and (max-width: 519px) {
 
 	.container {
@@ -247,11 +252,121 @@
 		display: grid;
   		grid-template-columns: 1fr 1fr 1fr;
 	}
+	.search {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
 
+	.search div {
+		margin-right: 10px;
+	}
 	}
 </style>
 </head>
 <body>
+<%
+
+		//変数定義
+
+		Connection conn;
+		Statement st;
+		Statement st1;
+		Statement st2;
+		Statement st3;
+		String sql;
+		String sql_new;
+		String sql_fvr;
+		String sql_hot;
+		ResultSet rs;
+		ResultSet rs1;
+		ResultSet rs2;
+		ResultSet rs3;
+
+		//検索キーワードを取得する
+
+		String key = request.getParameter("key");
+		if( key == null ) {
+			key = "";
+		}
+
+		//データベースに接続する
+
+		Class.forName(jdbc);
+		conn = DriverManager.getConnection(url,user,pass);
+
+		// 全データ件数を取得する
+
+		st = conn.createStatement();
+		sql = "SELECT COUNT(*) FROM shoutengai";
+
+		if( key.equals("") == false ) {
+			sql	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
+		}
+		rs = st.executeQuery(sql);
+		rs.next();
+
+		int dtcnt = rs.getInt(1);
+
+		//表示するページ位置を取得する
+
+		int p;
+		try {
+			p = Integer.parseInt(request.getParameter("p"));
+		}
+		catch (Exception e) {
+			p = 1;
+		}
+		if( p < 1 ) {
+			p = 1;
+		}
+
+		//前後のページ番号を取得する
+
+		int prev = p - 1;
+		if( prev < 1 ) {
+			prev = 1;
+		}
+		int next = p + 1;
+
+		//表示するデータの位置を取得する
+
+		int s = (p - 1) * lim;
+
+		//データを取り出す
+
+		st = conn.createStatement();
+		st1 = conn.createStatement();
+		st2 = conn.createStatement();
+		st3 = conn.createStatement();
+
+		sql = "SELECT id,pname,price,img  FROM shoutengai ";
+
+		sql_new = sql + "order by lasttime desc limit 3";
+
+		sql_fvr = sql + "order by rate asc limit 3";
+
+		sql_hot = sql + "order by amount asc limit 3";
+
+		//Navbarでクエリ
+		String shopNum = request.getParameter("shopNum");
+
+		if( key.equals("") == false ) {
+			sql	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
+		}
+
+		sql += " ORDER BY id DESC";
+		sql += " LIMIT " + s + "," + lim;
+
+
+
+		rs = st.executeQuery(sql);
+		rs1 = st1.executeQuery(sql_new);
+		rs2 = st2.executeQuery(sql_fvr);
+		rs3 = st3.executeQuery(sql_hot);
+
+
+		%>
 <div class="container">
 	<header>
 	<div id="img" style="">
@@ -326,189 +441,22 @@
 	</div>
 	<main>
 	<div id="sidebar">
-	ここにサイドバー
+		<%-- 検索キーワード用テキストボックス --%>
+
+	<table>
+	<tr>
+		<form method="post" action="<%=request.getRequestURI()%>">
+			<td><input type="text" size="12" name="key" value="<%=cnvString(key)%>"></td>
+			<td><input type="submit" value="検索" name="sub1"></td>
+		</form>
+	</tr>
+	</table>
+	<br>
 	</div>
 	<div id="content">
+
 		<%
-
-		//変数定義
-
-		Connection conn;
-		Statement st1;
-		Statement st2;
-		Statement st3;
-		Statement st4;
-		Statement st;
-		String sql1;
-		String sql2;
-		String sql3;
-		String sql4;
-		String sql;
-		String sql_new;
-		String sql_fvr;
-		String sql_hot;
-		ResultSet rs1;
-		ResultSet rs2;
-		ResultSet rs3;
-		ResultSet rs4;
-		ResultSet rs;
-
-		//検索キーワードを取得する
-
-		String key = request.getParameter("key");
-		if( key == null ) {
-			key = "";
-		}
-
-		//データベースに接続する
-
-		Class.forName(jdbc);
-		conn = DriverManager.getConnection(url,user,pass);
-
-		// 全データ件数を取得する
-
-		st1 = conn.createStatement();
-		st2 = conn.createStatement();
-		st3 = conn.createStatement();
-		st4 = conn.createStatement();
-		st = conn.createStatement();
-		sql1 = "SELECT COUNT(*) FROM seiniku1";
-		sql2 = "SELECT COUNT(*) FROM sengyo1";
-		sql3 = "SELECT COUNT(*) FROM sengyo2";
-		sql4 = "SELECT COUNT(*) FROM yaoya1";
-		sql = "SELECT COUNT(*) FROM shoutengai";
-
-		Statement st_new;
-		Statement st_fvr;
-		Statement st_hot;
-		st_new = conn.createStatement();
-		st_fvr = conn.createStatement();
-		st_hot = conn.createStatement();
-		sql_new = "SELECT COUNT(*) FROM shoutengai";
-		sql_fvr = "SELECT COUNT(*) FROM shoutengai";
-		sql_hot = "SELECT COUNT(*) FROM shoutengai";
-
-
-		if( key.equals("") == false ) {
-			sql1	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql2	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql3	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql4	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		rs1 = st1.executeQuery(sql_new);
-		rs2 = st2.executeQuery(sql_fvr);
-		rs3 = st3.executeQuery(sql_hot);
-		rs1.next();
-		rs2.next();
-		rs3.next();
-		int dtcnt1 = rs1.getInt(1);
-		int dtcnt2 = rs2.getInt(1);
-		int dtcnt3 = rs3.getInt(1);
-
-		//表示するページ位置を取得する
-
-		int p;
-		try {
-			p = Integer.parseInt(request.getParameter("p"));
-		}
-		catch (Exception e) {
-			p = 1;
-		}
-		if( p < 1 ) {
-			p = 1;
-		}
-
-		//前後のページ番号を取得する
-
-		int prev = p - 1;
-		if( prev < 1 ) {
-			prev = 1;
-		}
-		int next = p + 1;
-
-		//表示するデータの位置を取得する
-
-		int s = (p - 1) * lim;
-
-		//データを取り出す
-
-		st1 = conn.createStatement();
-		st2 = conn.createStatement();
-		st3 = conn.createStatement();
-		st4 = conn.createStatement();
-		st = conn.createStatement();
-
-		sql1 = "SELECT id,pname,price,img  FROM seiniku1 ";
-
-		sql2 = "SELECT id,pname,price,img  FROM sengyo1 ";
-
-		sql3 = "SELECT id,pname,price,img  FROM sengyo2 ";
-
-		sql4 = "SELECT id,pname,price,img  FROM yaoya1 ";
-
-		sql = "SELECT id,pname,price,img  FROM shoutengai ";
-
-
-
-		sql_new = sql + "order by lasttime desc limit 3";
-
-		sql_fvr = sql + "order by rate asc limit 3";
-
-		sql_hot = sql + "order by amount asc limit 3";
-
-
-
-		if( key.equals("") == false ) {
-			sql1	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql2	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql3	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-		if( key.equals("") == false ) {
-			sql4	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-		}
-
-
-		//Navbarでクエリ
-		String shopNum = request.getParameter("shopNum");
-
-		if( key.equals("") == false ) {
-			sql	+=	" WHERE pname LIKE '%" + cnvString(key) + "%'";
-			if( shopNum.equals("") == false ) {
-			sql += 	"AND shopNum = " + shopNum;
-			}
-		}
-
-		sql1 += " ORDER BY id DESC";
-		sql2 += " ORDER BY id DESC";
-		sql3 += " ORDER BY id DESC";
-		sql4 += " ORDER BY id DESC";
-		sql += " ORDER BY id DESC";
-		sql1 += " LIMIT " + s + "," + lim;
-		sql2 += " LIMIT " + s + "," + lim;
-		sql3 += " LIMIT " + s + "," + lim;
-		sql4 += " LIMIT " + s + "," + lim;
-		sql += " LIMIT " + s + "," + lim;
-
-
-
-		rs1 = st1.executeQuery(sql_new);
-		rs2 = st2.executeQuery(sql_fvr);
-		rs3 = st3.executeQuery(sql_hot);
-
-
+			if(request.getParameter("sub1") == null) {
 		%>
 
 		<h2>新着商品</h2>
@@ -608,11 +556,46 @@
 			%>
 
 		</div>
+		<%
+			} else {
+		%>
+			<div class="search">
 
+				<%
+				while( rs.next() ) {
+				String id = rs.getString("id");
+				%>
+					<div>
+						<div class="product">
+				<%
+						String imgPath = rs.getString("img");
+						if( imgPath == null || imgPath.equals("") ) {
+							imgPath = "print.gif";
+						}
+				%>
+						<img src="images/<%= imgPath %>" width="150" height="150" /><br>
+
+						<%=rs.getString("pname")%> <br>
+						<%=toYenStr(rs.getInt("price"))%> <br>
+						<form method="post" action="detail.jsp">
+							<input type="submit" value="商品ページへ">
+							<input type="hidden" name="id" value="<%=id%>">
+						</form>
+						<br>
+						</div>
+					</div>
+					<%
+				}
+					%>
+			</div>
+		<%
+			}
+		%>
 	</div>
 	<% conn.close(); %>
 	</main>
-	<a href="buyindex.jsp">商品一覧へ</a>
+	<br>
+	<a href="index.jsp">トップページへ</a>
 </div>
 <footer>
 
